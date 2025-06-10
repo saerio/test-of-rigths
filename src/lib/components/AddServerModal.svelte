@@ -11,9 +11,10 @@
 	import Tooltip from '$lib/components/common/Tooltip.svelte';
 	import Switch from '$lib/components/common/Switch.svelte';
 	import Tags from './common/Tags.svelte';
-	import { getToolServerData } from '$lib/apis';
+	import { getToolServerData, getToolServerOAuthProviders } from '$lib/apis';
 	import { verifyToolServerConnection } from '$lib/apis/configs';
 	import AccessControl from './workspace/common/AccessControl.svelte';
+	import { WEBUI_BASE_URL } from '$lib/constants';
 
 	export let onSubmit: Function = () => {};
 	export let onDelete: Function = () => {};
@@ -28,7 +29,11 @@
 	let path = 'openapi.json';
 
 	let auth_type = 'bearer';
+	let oAuthProviders: string[] = [];
+	let oAuthProvider = '';
 	let key = '';
+
+	let popup: WindowProxy | null = null;
 
 	let accessControl = {};
 
@@ -39,7 +44,23 @@
 
 	let loading = false;
 
+	const startOAuthFlow = async () => {
+		// Idea: Pass the server_url and do whole OAuth login + Verify Connection flow?
+		const loginUrl = `${WEBUI_BASE_URL}/toolserver/${oAuthProvider}/login`;
+
+		popup = window.open(
+			loginUrl,
+			'oauthPopup',
+			'width=500,height=600'
+		);
+	};
+
 	const verifyHandler = async () => {
+		if (auth_type === 'oauth' && key === '') {
+			toast.error($i18n.t('Please Sign In to your selected provider, or manually enter an access token.'));
+			return;
+		}
+
 		if (url === '') {
 			toast.error($i18n.t('Please enter a valid URL'));
 			return;
@@ -51,6 +72,8 @@
 		}
 
 		if (direct) {
+			// TODO: Add support for OAuth verification
+			// This could potentially work out of the box if we wire up the backend correctly
 			const res = await getToolServerData(
 				auth_type === 'bearer' ? key : localStorage.token,
 				path.includes('://') ? path : `${url}${path.startsWith('/') ? '' : '/'}${path}`
@@ -139,6 +162,13 @@
 			enable = connection.config?.enable ?? true;
 			accessControl = connection.config?.access_control ?? null;
 		}
+
+		getToolServerOAuthProviders().then((providers) => {
+			if (providers.length > 0) {
+				oAuthProviders = providers;
+				oAuthProvider = oAuthProviders[0];
+			}
+		});
 	};
 
 	$: if (show) {
@@ -146,6 +176,23 @@
 	}
 
 	onMount(() => {
+		window.addEventListener('message', (event) => {
+			if (event.origin !== WEBUI_BASE_URL) return;
+
+			const data = event.data;
+
+			try {
+				if (data.toolserverAuthSuccess) {
+					key = data.accessToken;
+					toast.success($i18n.t(`Authentication successful! Access token was set.`));
+					if (popup) popup.close();
+				} else {
+					toast.error($i18n.t(`Failed to authenticate to ${data.provider}`));
+				}
+			} catch (e: any) {
+				toast.error($i18n.t(`Failed to process authentication response: ${e.message}`));
+			}
+		});
 		init();
 	});
 </script>
@@ -257,20 +304,39 @@
 
 						<div class="flex gap-2 mt-2">
 							<div class="flex flex-col w-full">
-								<div class="  text-xs text-gray-500">{$i18n.t('Auth')}</div>
+								<div class="text-xs text-gray-500">{$i18n.t('Auth')}</div>
 
-								<div class="flex gap-2">
-									<div class="flex-shrink-0 self-start">
+								<div class="flex items-center gap-2">
+									<div class="flex-shrink-0">
 										<select
 											class="w-full text-sm bg-transparent dark:bg-gray-900 placeholder:text-gray-300 dark:placeholder:text-gray-700 outline-hidden pr-5"
 											bind:value={auth_type}
 										>
 											<option value="bearer">Bearer</option>
 											<option value="session">Session</option>
+											<option value="oauth">OAuth</option>
 										</select>
 									</div>
 
-									<div class="flex flex-1 items-center">
+									{#if auth_type === 'oauth'}
+										<div class="flex-shrink-0">
+											{#if oAuthProviders.length === 0}
+												<div class="text-xs text-gray-500 self-center translate-y-[1px]">
+													{$i18n.t('No OAuth providers configured. Please contact your administrator.')}
+												</div>
+											{:else}
+											<select
+												class="w-full text-sm bg-transparent dark:bg-gray-900 placeholder:text-gray-300 dark:placeholder:text-gray-700 outline-hidden pr-5"
+												bind:value={oAuthProvider}
+											>
+												{#each oAuthProviders as provider}
+													<option value={provider}>{provider.charAt(0).toUpperCase() + provider.slice(1)}</option>
+												{/each}
+											</select>
+											{/if}
+										</div>
+									{/if}
+									<div class="flex-1">
 										{#if auth_type === 'bearer'}
 											<SensitiveInput
 												className="w-full text-sm bg-transparent placeholder:text-gray-300 dark:placeholder:text-gray-700 outline-hidden"
@@ -282,9 +348,27 @@
 											<div class="text-xs text-gray-500 self-center translate-y-[1px]">
 												{$i18n.t('Forwards system user session credentials to authenticate')}
 											</div>
+										{:else if auth_type === 'oauth' && oAuthProvider !== ''}
+											<button
+												class="ml-auto px-3.5 py-1.5 text-sm font-medium bg-black hover:bg-gray-900 text-white dark:bg-white dark:text-black dark:hover:bg-gray-100 transition rounded-full flex flex-row space-x-1 items-center"
+												on:click={() => startOAuthFlow()}
+											>
+												{$i18n.t(key === '' ? 'Sign In' : 'Refresh Token')}
+											</button>
 										{/if}
 									</div>
 								</div>
+
+								{#if auth_type === 'oauth'}
+									<div class="mt-2">
+										<SensitiveInput
+											className="w-full text-sm bg-transparent placeholder:text-gray-300 dark:placeholder:text-gray-700 outline-hidden"
+											bind:value={key}
+											placeholder={$i18n.t('Access Token')}
+											required={false}
+										/>
+									</div>
+								{/if}
 							</div>
 						</div>
 
