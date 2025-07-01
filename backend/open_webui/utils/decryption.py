@@ -40,16 +40,21 @@ def decrypt_file_via_azure(
             files=files,
             timeout=timeout,
         )
-        response.raise_for_status()
-        content_type = response.headers.get("content-type", "")
-        if content_type.startswith("application/json"):
-            # Azure function returned an error in JSON
-            try:
-                error = response.json()
-            except Exception as e:
-                logging.error(f"Invalid JSON error response from Azure function: {e}")
-                raise DecryptionError("Invalid error response format from Azure function")
-            raise DecryptionError(f"Azure function error: {error}")
+        # If the response is an error, capture the error message (plain text or JSON)
+        if response.status_code >= 400:
+            content_type = response.headers.get("content-type", "")
+            if content_type.startswith("application/json"):
+                try:
+                    error = response.json()
+                except Exception as e:
+                    logging.error(f"Invalid JSON error response from Azure function: {e}")
+                    raise DecryptionError("Invalid error response format from Azure function")
+                raise DecryptionError(error.get("detail") or str(error))
+            else:
+                # Assume plain text error
+                error_text = response.text.strip()
+                logging.error(f"Azure function returned error (plain text): {error_text}")
+                raise DecryptionError(error_text or "Unknown error from Azure function")
         if not response.content or len(response.content) == 0:
             logging.error("Decryption succeeded but returned empty content")
             raise DecryptionError("Decryption succeeded but returned empty content")

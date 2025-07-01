@@ -244,6 +244,8 @@ def upload_file(
                 detail=ERROR_MESSAGES.DEFAULT("Error uploading file"),
             )
 
+    except HTTPException as e:
+        raise
     except Exception as e:
         log.exception(e)
         raise HTTPException(

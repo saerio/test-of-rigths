@@ -1580,6 +1580,7 @@ async def get_app_config(request: Request):
                         "width": app.state.config.FILE_IMAGE_COMPRESSION_WIDTH,
                         "height": app.state.config.FILE_IMAGE_COMPRESSION_HEIGHT,
                     },
+                    "decryption_enabled": app.state.config.ENABLE_FILE_DECRYPTION,
                 },
                 "permissions": {**app.state.config.USER_PERMISSIONS},
                 "google_drive": {

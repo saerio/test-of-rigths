@@ -264,7 +264,7 @@
 		let loadingToastId = null;
 		try {
 			// Show loading toast for decryption if enabled in config
-			if ($config?.file?.decryption?.enabled) {
+			if ($config?.file?.decryption_enabled ?? false) {
 				loadingToastId = toast.loading($i18n.t('Decrypting and uploading file...'));
 			} else {
 				loadingToastId = toast.loading($i18n.t('Uploading file...'));
