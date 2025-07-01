@@ -150,6 +150,7 @@ def upload_file(
                 with open(file_path, "rb") as f:
                     encrypted_bytes = f.read()
                 decrypted_bytes = decrypt_file_via_azure(
+                    filename,
                     encrypted_bytes,
                     decryption_endpoint,
                     decryption_api_key,

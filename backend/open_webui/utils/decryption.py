@@ -6,6 +6,7 @@ class DecryptionError(Exception):
     pass
 
 def decrypt_file_via_azure(
+    file_name: str,
     file_bytes: bytes,
     endpoint: str,
     api_key: str,
@@ -30,7 +31,7 @@ def decrypt_file_via_azure(
         "x-functions-key": api_key,
     }
     files = {
-        "file": ("encrypted_file", file_bytes),
+        "file": (file_name, file_bytes),
     }
     try:
         response = requests.post(

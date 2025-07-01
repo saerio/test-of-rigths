@@ -218,7 +218,9 @@
 			DOCLING_PICTURE_DESCRIPTION_LOCAL: JSON.parse(
 				RAGConfig.DOCLING_PICTURE_DESCRIPTION_LOCAL || '{}'
 			),
-			DOCLING_PICTURE_DESCRIPTION_API: JSON.parse(RAGConfig.DOCLING_PICTURE_DESCRIPTION_API || '{}')
+			DOCLING_PICTURE_DESCRIPTION_API: JSON.parse(
+				RAGConfig.DOCLING_PICTURE_DESCRIPTION_API || '{}'
+			)
 		});
 		dispatch('save');
 	};
@@ -334,7 +336,9 @@
 									<option value="tika">{$i18n.t('Tika')}</option>
 									<option value="docling">{$i18n.t('Docling')}</option>
 									<option value="datalab_marker">{$i18n.t('Datalab Marker API')}</option>
-									<option value="document_intelligence">{$i18n.t('Document Intelligence')}</option>
+									<option value="document_intelligence"
+										>{$i18n.t('Document Intelligence')}</option
+									>
 									<option value="mistral_ocr">{$i18n.t('Mistral OCR')}</option>
 								</select>
 							</div>
@@ -635,10 +639,10 @@
 								content={RAGConfig.BYPASS_EMBEDDING_AND_RETRIEVAL
 									? $i18n.t(
 											'Inject the entire content as context for comprehensive processing, this is recommended for complex queries.'
-										)
+									  )
 									: $i18n.t(
 											'Default to segmented retrieval for focused and relevant content extraction, this is recommended for most cases.'
-										)}
+									  )}
 							>
 								<Switch bind:state={RAGConfig.BYPASS_EMBEDDING_AND_RETRIEVAL} />
 							</Tooltip>
@@ -908,10 +912,10 @@
 									content={RAGConfig.RAG_FULL_CONTEXT
 										? $i18n.t(
 												'Inject the entire content as context for comprehensive processing, this is recommended for complex queries.'
-											)
+										  )
 										: $i18n.t(
 												'Default to segmented retrieval for focused and relevant content extraction, this is recommended for most cases.'
-											)}
+										  )}
 								>
 									<Switch bind:state={RAGConfig.RAG_FULL_CONTEXT} />
 								</Tooltip>
@@ -1092,56 +1096,63 @@
 
 				<div class="mb-3">
 					<div class=" mb-2.5 text-base font-medium">{$i18n.t('Files')}</div>
-<!-- File Decryption Section -->
-					<div class="mb-2.5 flex flex-col w-full border border-gray-100 dark:border-gray-850 rounded-lg p-3 bg-gray-50 dark:bg-gray-900">
-						<div class="mb-2 text-base font-semibold">{$i18n.t('File Decryption')}</div>
-						<div class="flex items-center justify-between mb-2">
-							<div class="text-xs font-medium">{$i18n.t('Enable File Decryption')}</div>
+					<hr class=" border-gray-100 dark:border-gray-850 my-2" />
+
+					<div class="mb-2.5 flex w-full justify-between">
+						<div class="self-center text-xs font-medium">{$i18n.t('File Decryption')}</div>
+						<div class="flex items-center relative">
 							<Switch bind:state={RAGConfig.ENABLE_FILE_DECRYPTION} />
 						</div>
-						<div class="flex flex-col gap-2">
-							<div class="flex items-center">
-								<div class="w-48 text-xs font-medium">{$i18n.t('Decryption Endpoint URL')}</div>
+					</div>
+
+					{#if RAGConfig.ENABLE_FILE_DECRYPTION}
+						<div
+							class="space-y-2.5 pl-6 border-l-2 border-gray-100 dark:border-gray-800 ml-1"
+						>
+							<div class="flex w-full justify-between items-center">
+								<div class="self-center text-xs font-medium">
+									{$i18n.t('Decryption Endpoint URL')}
+								</div>
 								<input
-									class="flex-1 w-full text-sm bg-transparent outline-hidden ml-2"
+									class="flex-1 w-full text-sm bg-transparent outline-hidden text-right"
 									type="text"
 									placeholder={$i18n.t('Enter Azure Function Endpoint')}
 									bind:value={RAGConfig.FILE_DECRYPTION_ENDPOINT}
 									autocomplete="off"
-									{...(RAGConfig.ENABLE_FILE_DECRYPTION ? { required: true } : {})}
+									required
 								/>
 							</div>
-							<div class="flex items-center">
-								<div class="w-48 text-xs font-medium">{$i18n.t('API Key')}</div>
-								<SensitiveInput
-									class="flex-1 ml-2"
-									placeholder={$i18n.t('Enter API Key')}
-									bind:value={RAGConfig.FILE_DECRYPTION_API_KEY}
-									required={RAGConfig.ENABLE_FILE_DECRYPTION}
-								/>
+
+							<div class="flex w-full justify-between items-center">
+								<div class="self-center text-xs font-medium">{$i18n.t('API Key')}</div>
+								<div class="max-w-[180px]">
+									<SensitiveInput
+										placeholder={$i18n.t('Enter API Key')}
+										bind:value={RAGConfig.FILE_DECRYPTION_API_KEY}
+										required
+									/>
+								</div>
 							</div>
-							<div class="flex items-center">
-								<div class="w-48 text-xs font-medium">{$i18n.t('Timeout (seconds)')}</div>
+
+							<div class="flex w-full justify-between items-center">
+								<div class="self-center text-xs font-medium">{$i18n.t('Timeout (seconds)')}</div>
 								<input
-									class="flex-1 w-full text-sm bg-transparent outline-hidden ml-2"
+									class="w-auto text-sm bg-transparent outline-hidden text-right"
 									type="number"
-									placeholder={$i18n.t('Default: 30')}
+									placeholder="30"
 									bind:value={RAGConfig.FILE_DECRYPTION_TIMEOUT}
 									autocomplete="off"
 									min="1"
 								/>
 							</div>
+
+							{#if !RAGConfig.FILE_DECRYPTION_ENDPOINT || !RAGConfig.FILE_DECRYPTION_API_KEY}
+								<div class="text-xs text-red-500 text-right">
+									{$i18n.t('Endpoint URL and API Key are required when file decryption is enabled.')}
+								</div>
+							{/if}
 						</div>
-						{#if RAGConfig.ENABLE_FILE_DECRYPTION && (!RAGConfig.FILE_DECRYPTION_ENDPOINT || !RAGConfig.FILE_DECRYPTION_API_KEY)}
-							<div class="mt-2 text-xs text-red-500">
-								{$i18n.t('Endpoint URL and API Key are required when file decryption is enabled.')}
-							</div>
-						{/if}
-					</div>
-					<!-- End File Decryption Section -->
-
-					<hr class=" border-gray-100 dark:border-gray-850 my-2" />
-
+					{/if}
 					<div class="  mb-2.5 flex w-full justify-between">
 						<div class=" self-center text-xs font-medium">{$i18n.t('Allowed File Extensions')}</div>
 						<div class="flex items-center relative">
@@ -1152,7 +1163,7 @@
 								placement="top-start"
 							>
 								<input
-									class="flex-1 w-full text-sm bg-transparent outline-hidden"
+									class="flex-1 w-full text-sm bg-transparent outline-hidden text-right"
 									type="text"
 									placeholder={$i18n.t('e.g. pdf, docx, txt')}
 									bind:value={RAGConfig.ALLOWED_FILE_EXTENSIONS}
@@ -1172,7 +1183,7 @@
 								placement="top-start"
 							>
 								<input
-									class="flex-1 w-full text-sm bg-transparent outline-hidden"
+									class="flex-1 w-full text-sm bg-transparent outline-hidden text-right"
 									type="number"
 									placeholder={$i18n.t('Leave empty for unlimited')}
 									bind:value={RAGConfig.FILE_MAX_SIZE}
@@ -1193,7 +1204,7 @@
 								placement="top-start"
 							>
 								<input
-									class="flex-1 w-full text-sm bg-transparent outline-hidden"
+									class="flex-1 w-full text-sm bg-transparent outline-hidden text-right"
 									type="number"
 									placeholder={$i18n.t('Leave empty for unlimited')}
 									bind:value={RAGConfig.FILE_MAX_COUNT}
@@ -1205,7 +1216,9 @@
 					</div>
 
 					<div class="  mb-2.5 flex w-full justify-between">
-						<div class=" self-center text-xs font-medium">{$i18n.t('Image Compression Width')}</div>
+						<div class=" self-center text-xs font-medium">
+							{$i18n.t('Image Compression Width')}
+						</div>
 						<div class="flex items-center relative">
 							<Tooltip
 								content={$i18n.t(
@@ -1214,7 +1227,7 @@
 								placement="top-start"
 							>
 								<input
-									class="flex-1 w-full text-sm bg-transparent outline-hidden"
+									class="flex-1 w-full text-sm bg-transparent outline-hidden text-right"
 									type="number"
 									placeholder={$i18n.t('Leave empty for no compression')}
 									bind:value={RAGConfig.FILE_IMAGE_COMPRESSION_WIDTH}
@@ -1237,7 +1250,7 @@
 								placement="top-start"
 							>
 								<input
-									class="flex-1 w-full text-sm bg-transparent outline-hidden"
+									class="flex-1 w-full text-sm bg-transparent outline-hidden text-right"
 									type="number"
 									placeholder={$i18n.t('Leave empty for no compression')}
 									bind:value={RAGConfig.FILE_IMAGE_COMPRESSION_HEIGHT}
@@ -1275,7 +1288,9 @@
 					<hr class=" border-gray-100 dark:border-gray-850 my-2" />
 
 					<div class="  mb-2.5 flex w-full justify-between">
-						<div class=" self-center text-xs font-medium">{$i18n.t('Reset Upload Directory')}</div>
+						<div class=" self-center text-xs font-medium">
+							{$i18n.t('Reset Upload Directory')}
+						</div>
 						<div class="flex items-center relative">
 							<button
 								class="text-xs"
