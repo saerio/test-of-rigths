@@ -395,10 +395,10 @@ async def get_rag_config(request: Request, user=Depends(get_admin_user)):
         "TOP_K_RERANKER": request.app.state.config.TOP_K_RERANKER,
         "RELEVANCE_THRESHOLD": request.app.state.config.RELEVANCE_THRESHOLD,
         "HYBRID_BM25_WEIGHT": request.app.state.config.HYBRID_BM25_WEIGHT,
-        # File decryption settings    
-        "ENABLE_FILE_DECRYPTION": request.app.state.config.ENABLE_FILE_DECRYPTION,  
-        "FILE_DECRYPTION_ENDPOINT": request.app.state.config.FILE_DECRYPTION_ENDPOINT,   
-        "FILE_DECRYPTION_API_KEY": request.app.state.config.FILE_DECRYPTION_API_KEY,  
+        # File decryption settings
+        "ENABLE_FILE_DECRYPTION": request.app.state.config.ENABLE_FILE_DECRYPTION,
+        "FILE_DECRYPTION_ENDPOINT": request.app.state.config.FILE_DECRYPTION_ENDPOINT,
+        "FILE_DECRYPTION_API_KEY": request.app.state.config.FILE_DECRYPTION_API_KEY,
         "FILE_DECRYPTION_TIMEOUT": request.app.state.config.FILE_DECRYPTION_TIMEOUT,
         # Content extraction settings
         "CONTENT_EXTRACTION_ENGINE": request.app.state.config.CONTENT_EXTRACTION_ENGINE,

@@ -145,7 +145,11 @@ def upload_file(
 
         if enable_decryption and decryption_endpoint and decryption_api_key:
             try:
-                from open_webui.utils.decryption import decrypt_file_via_azure, DecryptionError
+                from open_webui.utils.decryption import (
+                    decrypt_file_via_azure,
+                    DecryptionError,
+                )
+
                 # Read the just-uploaded file bytes
                 with open(file_path, "rb") as f:
                     encrypted_bytes = f.read()
@@ -171,7 +175,9 @@ def upload_file(
                 log.error(f"Unexpected error during file decryption: {e}")
                 raise HTTPException(
                     status_code=status.HTTP_400_BAD_REQUEST,
-                    detail=ERROR_MESSAGES.DEFAULT(f"Unexpected error during file decryption: {e}"),
+                    detail=ERROR_MESSAGES.DEFAULT(
+                        f"Unexpected error during file decryption: {e}"
+                    ),
                 )
         # --- End Decryption Integration ---
 

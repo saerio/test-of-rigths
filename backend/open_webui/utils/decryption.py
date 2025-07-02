@@ -2,15 +2,13 @@ import requests
 from typing import Optional
 import logging
 
+
 class DecryptionError(Exception):
     pass
 
+
 def decrypt_file_via_azure(
-    file_name: str,
-    file_bytes: bytes,
-    endpoint: str,
-    api_key: str,
-    timeout: int = 30
+    file_name: str, file_bytes: bytes, endpoint: str, api_key: str, timeout: int = 30
 ) -> bytes:
     """
     Decrypts a file using the Azure function.
@@ -47,13 +45,19 @@ def decrypt_file_via_azure(
                 try:
                     error = response.json()
                 except Exception as e:
-                    logging.error(f"Invalid JSON error response from Azure function: {e}")
-                    raise DecryptionError("Invalid error response format from Azure function")
+                    logging.error(
+                        f"Invalid JSON error response from Azure function: {e}"
+                    )
+                    raise DecryptionError(
+                        "Invalid error response format from Azure function"
+                    )
                 raise DecryptionError(error.get("detail") or str(error))
             else:
                 # Assume plain text error
                 error_text = response.text.strip()
-                logging.error(f"Azure function returned error (plain text): {error_text}")
+                logging.error(
+                    f"Azure function returned error (plain text): {error_text}"
+                )
                 raise DecryptionError(error_text or "Unknown error from Azure function")
         if not response.content or len(response.content) == 0:
             logging.error("Decryption succeeded but returned empty content")
@@ -69,7 +73,9 @@ def decrypt_file_via_azure(
         raise DecryptionError("Decryption request timed out (network timeout)")
     except requests.RequestException as e:
         logging.error(f"Decryption request failed: {e}")
-        raise DecryptionError(f"Decryption request failed (network or authentication error): {e}")
+        raise DecryptionError(
+            f"Decryption request failed (network or authentication error): {e}"
+        )
     except DecryptionError as e:
         # Already logged above
         raise
