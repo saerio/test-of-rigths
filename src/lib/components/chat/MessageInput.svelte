@@ -311,7 +311,7 @@
 			}
 		} catch (e) {
 			toast.dismiss(loadingToastId);
-			const errMsg = typeof e === 'string' ? e : (e?.message || `${e}`);
+			const errMsg = typeof e === 'string' ? e : e?.message || `${e}`;
 			if (
 				errMsg.toLowerCase().includes('decryption') ||
 				errMsg.toLowerCase().includes('azure function error')

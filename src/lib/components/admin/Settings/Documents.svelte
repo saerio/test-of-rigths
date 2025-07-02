@@ -144,7 +144,9 @@
 			RAGConfig.ENABLE_FILE_DECRYPTION &&
 			(!RAGConfig.FILE_DECRYPTION_ENDPOINT || !RAGConfig.FILE_DECRYPTION_API_KEY)
 		) {
-			toast.error($i18n.t('Endpoint URL and API Key are required when file decryption is enabled.'));
+			toast.error(
+				$i18n.t('Endpoint URL and API Key are required when file decryption is enabled.')
+			);
 			return;
 		}
 
@@ -218,9 +220,7 @@
 			DOCLING_PICTURE_DESCRIPTION_LOCAL: JSON.parse(
 				RAGConfig.DOCLING_PICTURE_DESCRIPTION_LOCAL || '{}'
 			),
-			DOCLING_PICTURE_DESCRIPTION_API: JSON.parse(
-				RAGConfig.DOCLING_PICTURE_DESCRIPTION_API || '{}'
-			)
+			DOCLING_PICTURE_DESCRIPTION_API: JSON.parse(RAGConfig.DOCLING_PICTURE_DESCRIPTION_API || '{}')
 		});
 		dispatch('save');
 	};
@@ -336,9 +336,7 @@
 									<option value="tika">{$i18n.t('Tika')}</option>
 									<option value="docling">{$i18n.t('Docling')}</option>
 									<option value="datalab_marker">{$i18n.t('Datalab Marker API')}</option>
-									<option value="document_intelligence"
-										>{$i18n.t('Document Intelligence')}</option
-									>
+									<option value="document_intelligence">{$i18n.t('Document Intelligence')}</option>
 									<option value="mistral_ocr">{$i18n.t('Mistral OCR')}</option>
 								</select>
 							</div>
@@ -639,10 +637,10 @@
 								content={RAGConfig.BYPASS_EMBEDDING_AND_RETRIEVAL
 									? $i18n.t(
 											'Inject the entire content as context for comprehensive processing, this is recommended for complex queries.'
-									  )
+										)
 									: $i18n.t(
 											'Default to segmented retrieval for focused and relevant content extraction, this is recommended for most cases.'
-									  )}
+										)}
 							>
 								<Switch bind:state={RAGConfig.BYPASS_EMBEDDING_AND_RETRIEVAL} />
 							</Tooltip>
@@ -912,10 +910,10 @@
 									content={RAGConfig.RAG_FULL_CONTEXT
 										? $i18n.t(
 												'Inject the entire content as context for comprehensive processing, this is recommended for complex queries.'
-										  )
+											)
 										: $i18n.t(
 												'Default to segmented retrieval for focused and relevant content extraction, this is recommended for most cases.'
-										  )}
+											)}
 								>
 									<Switch bind:state={RAGConfig.RAG_FULL_CONTEXT} />
 								</Tooltip>
@@ -1106,9 +1104,7 @@
 					</div>
 
 					{#if RAGConfig.ENABLE_FILE_DECRYPTION}
-						<div
-							class="space-y-2.5 pl-6 border-l-2 border-gray-100 dark:border-gray-800 ml-1"
-						>
+						<div class="space-y-2.5 pl-6 border-l-2 border-gray-100 dark:border-gray-800 ml-1">
 							<div class="flex w-full justify-between items-center">
 								<div class="self-center text-xs font-medium">
 									{$i18n.t('Decryption Endpoint URL')}
@@ -1148,7 +1144,9 @@
 
 							{#if !RAGConfig.FILE_DECRYPTION_ENDPOINT || !RAGConfig.FILE_DECRYPTION_API_KEY}
 								<div class="text-xs text-red-500 text-right">
-									{$i18n.t('Endpoint URL and API Key are required when file decryption is enabled.')}
+									{$i18n.t(
+										'Endpoint URL and API Key are required when file decryption is enabled.'
+									)}
 								</div>
 							{/if}
 						</div>
