@@ -150,12 +150,10 @@ def upload_file(
                     DecryptionError,
                 )
 
-                # Read the just-uploaded file bytes
-                with open(file_path, "rb") as f:
-                    encrypted_bytes = f.read()
+                
                 decrypted_bytes = decrypt_file_via_azure(
                     filename,
-                    encrypted_bytes,
+                    contents,
                     decryption_endpoint,
                     decryption_api_key,
                     decryption_timeout,
