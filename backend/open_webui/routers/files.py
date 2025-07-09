@@ -136,49 +136,6 @@ def upload_file(
         }
         contents, file_path = Storage.upload_file(file.file, filename, tags)
 
-        # --- Begin Decryption Integration ---
-        config = request.app.state.config
-        enable_decryption = getattr(config, "ENABLE_FILE_DECRYPTION", False)
-        decryption_endpoint = getattr(config, "FILE_DECRYPTION_ENDPOINT", None)
-        decryption_api_key = getattr(config, "FILE_DECRYPTION_API_KEY", None)
-        decryption_timeout = getattr(config, "FILE_DECRYPTION_TIMEOUT", 30)
-
-        if enable_decryption and decryption_endpoint and decryption_api_key:
-            try:
-                from open_webui.utils.decryption import (
-                    decrypt_file_via_azure,
-                    DecryptionError,
-                )
-
-                
-                decrypted_bytes = decrypt_file_via_azure(
-                    filename,
-                    contents,
-                    decryption_endpoint,
-                    decryption_api_key,
-                    decryption_timeout,
-                )
-                # Overwrite the file with decrypted content
-                with open(file_path, "wb") as f:
-                    f.write(decrypted_bytes)
-                contents = decrypted_bytes
-                log.info(f"File {filename} decrypted successfully.")
-            except DecryptionError as e:
-                log.error(f"File decryption failed: {e}")
-                raise HTTPException(
-                    status_code=status.HTTP_400_BAD_REQUEST,
-                    detail=ERROR_MESSAGES.DEFAULT(f"File decryption failed: {e}"),
-                )
-            except Exception as e:
-                log.error(f"Unexpected error during file decryption: {e}")
-                raise HTTPException(
-                    status_code=status.HTTP_400_BAD_REQUEST,
-                    detail=ERROR_MESSAGES.DEFAULT(
-                        f"Unexpected error during file decryption: {e}"
-                    ),
-                )
-        # --- End Decryption Integration ---
-
         file_item = Files.insert_new_file(
             user.id,
             FileForm(
@@ -198,18 +155,17 @@ def upload_file(
         if process:
             try:
                 if file.content_type:
-                    stt_supported_content_types = getattr(
-                        request.app.state.config, "STT_SUPPORTED_CONTENT_TYPES", []
+                    stt_supported_content_types = (
+                        request.app.state.config.STT_SUPPORTED_CONTENT_TYPES
+                        or [
+                            "audio/*",
+                            "video/webm",
+                        ]
                     )
 
                     if any(
                         fnmatch(file.content_type, content_type)
-                        for content_type in (
-                            stt_supported_content_types
-                            if stt_supported_content_types
-                            and any(t.strip() for t in stt_supported_content_types)
-                            else ["audio/*", "video/webm"]
-                        )
+                        for content_type in stt_supported_content_types
                     ):
                         file_path = Storage.get_file(file_path)
                         result = transcribe(request, file_path, file_metadata)
@@ -248,8 +204,6 @@ def upload_file(
                 detail=ERROR_MESSAGES.DEFAULT("Error uploading file"),
             )
 
-    except HTTPException as e:
-        raise
     except Exception as e:
         log.exception(e)
         raise HTTPException(

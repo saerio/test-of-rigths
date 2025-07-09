@@ -1,7 +1,17 @@
 import requests
 from typing import Optional
 import logging
+from open_webui.config import PersistentConfig
 
+def extract_str(val):
+    if isinstance(val, PersistentConfig):
+        return str(val.value)
+    return str(val)
+
+def extract_int(val):
+    if isinstance(val, PersistentConfig):
+        return int(val.value)
+    return int(val)
 
 class DecryptionError(Exception):
     pass
@@ -25,8 +35,13 @@ def decrypt_file_via_azure(
     Raises:
         DecryptionError: If decryption fails or the response is invalid.
     """
+
+    endpoint = extract_str(endpoint)
+    api_key  = extract_str(api_key)
+    timeout  = extract_int(timeout)
+
     headers = {
-        "x-functions-key": api_key,
+        "x-functions-key": str(api_key),
     }
     files = {
         "file": (file_name, file_bytes),
