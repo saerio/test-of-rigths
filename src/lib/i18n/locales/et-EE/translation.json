@@ -399,6 +399,7 @@
 	"Download canceled": "Allalaadimine tühistatud",
 	"Download Database": "Laadi alla andmebaas",
 	"Drag and drop a file to upload or select a file to view": "Lohistage ja kukutage fail üleslaadimiseks või valige fail vaatamiseks",
+	"Select a file to view": "Valige vaatamiseks fail",
 	"Draw": "Joonista",
 	"Drop any files here to upload": "",
 	"e.g. '30s','10m'. Valid time units are 's', 'm', 'h'.": "nt '30s', '10m'. Kehtivad ajaühikud on 's', 'm', 'h'.",

@@ -399,6 +399,7 @@
 	"Download canceled": "Загрузка отменена",
 	"Download Database": "Загрузить базу данных",
 	"Drag and drop a file to upload or select a file to view": "Перетащите файл для загрузки или выберите файл для просмотра.",
+	"Select a file to view": "Выберите файл для просмотра",
 	"Draw": "Рисовать",
 	"Drop any files here to upload": "Переместите сюда любые файлы для загрузки",
 	"e.g. '30s','10m'. Valid time units are 's', 'm', 'h'.": "например, '30s','10m'. Допустимые единицы времени: 's', 'm', 'h'.",

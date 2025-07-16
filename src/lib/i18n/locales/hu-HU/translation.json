@@ -399,6 +399,7 @@
 	"Download canceled": "Letöltés megszakítva",
 	"Download Database": "Adatbázis letöltése",
 	"Drag and drop a file to upload or select a file to view": "Húzz ide egy fájlt a feltöltéshez vagy válassz fájlt a megtekintéshez",
+	"Select a file to view": "Válasszon ki egy fájlt a megtekintéshez",
 	"Draw": "Rajzolás",
 	"Drop any files here to upload": "",
 	"e.g. '30s','10m'. Valid time units are 's', 'm', 'h'.": "pl. '30s','10m'. Érvényes időegységek: 's', 'm', 'h'.",

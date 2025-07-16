@@ -399,6 +399,7 @@
 	"Download canceled": "Lataus peruutettu",
 	"Download Database": "Lataa tietokanta",
 	"Drag and drop a file to upload or select a file to view": "Raahaa ja pudota tiedosto ladattavaksi tai valitse tiedosto katseltavaksi",
+	"Select a file to view": "Valitse tiedosto katseltavaksi",
 	"Draw": "Piirros",
 	"Drop any files here to upload": "Pudota tähän ladattavat tiedostot",
 	"e.g. '30s','10m'. Valid time units are 's', 'm', 'h'.": "esim. '30s', '10m'. Kelpoiset aikayksiköt ovat 's', 'm', 'h'.",

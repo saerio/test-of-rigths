@@ -399,6 +399,7 @@
 	"Download canceled": "下载已取消",
 	"Download Database": "下载数据库",
 	"Drag and drop a file to upload or select a file to view": "拖动文件上传或选择文件查看",
+	"Select a file to view": "选择要查看的文件",
 	"Draw": "平局",
 	"Drop any files here to upload": "将任何文件拖放到此处进行上传",
 	"e.g. '30s','10m'. Valid time units are 's', 'm', 'h'.": "例如：'30s','10m'。有效的时间单位包括：'s'(秒), 'm'(分), 'h'(时)",

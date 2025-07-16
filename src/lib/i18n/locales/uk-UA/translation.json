@@ -399,6 +399,7 @@
 	"Download canceled": "Завантаження скасовано",
 	"Download Database": "Завантажити базу даних",
 	"Drag and drop a file to upload or select a file to view": "Перетягніть файл для завантаження або виберіть файл для перегляду",
+	"Select a file to view": "Виберіть файл для перегляду",
 	"Draw": "Малювати",
 	"Drop any files here to upload": "",
 	"e.g. '30s','10m'. Valid time units are 's', 'm', 'h'.": "напр., '30s','10m'. Дійсні одиниці часу: 'с', 'хв', 'г'.",

@@ -399,6 +399,7 @@
 	"Download canceled": "다운로드 취소",
 	"Download Database": "데이터베이스 다운로드",
 	"Drag and drop a file to upload or select a file to view": "파일을 끌어다 놓아 업로드하거나 파일을 선택하여 보기",
+	"Select a file to view": "보기할 파일 선택",
 	"Draw": "그리기",
 	"Drop any files here to upload": "여기에 파일을 끌어다 놓아 업로드하세요",
 	"e.g. '30s','10m'. Valid time units are 's', 'm', 'h'.": "예: '30초','10분'. 유효한 시간 단위는 '초', '분', '시'입니다.",

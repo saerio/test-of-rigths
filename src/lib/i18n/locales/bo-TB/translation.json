@@ -399,6 +399,7 @@
 	"Download canceled": "ཕབ་ལེན་རྩིས་མེད་བཏང་།",
 	"Download Database": "གནས་ཚུལ་མཛོད་ཕབ་ལེན།",
 	"Drag and drop a file to upload or select a file to view": "ཡིག་ཆ་ཞིག་འདྲུད་ནས་འཇོག་སྟེ་སྤར་བའམ། ཡང་ན་ཡིག་ཆ་ཞིག་གདམ་ག་བྱས་ནས་ལྟ་བ།",
+	"Select a file to view": "ལྟ་བའི་ཆེད་དུ་ཡིག་ཆ་གཅིག་འདེམས་རོགས།",
 	"Draw": "རི་མོ་འབྲི་བ།",
 	"Drop any files here to upload": "",
 	"e.g. '30s','10m'. Valid time units are 's', 'm', 'h'.": "དཔེར་ན། '30s','10m'. ནུས་ལྡན་དུས་ཚོད་ཀྱི་ཚན་པ་ནི། 's', 'm', 'h' ཡིན།",

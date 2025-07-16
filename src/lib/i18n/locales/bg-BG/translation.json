@@ -399,6 +399,7 @@
 	"Download canceled": "Изтегляне отменено",
 	"Download Database": "Сваляне на база данни",
 	"Drag and drop a file to upload or select a file to view": "Плъзнете и пуснете файл за качване или изберете файл за преглед",
+	"Select a file to view": "Изберете файл за преглед",
 	"Draw": "Рисуване",
 	"Drop any files here to upload": "",
 	"e.g. '30s','10m'. Valid time units are 's', 'm', 'h'.": "напр. '30с','10м'. Валидни единици са 'с', 'м', 'ч'.",
