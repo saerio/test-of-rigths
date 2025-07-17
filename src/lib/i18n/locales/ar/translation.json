@@ -399,6 +399,7 @@
 	"Download canceled": "تم اللغاء التحميل",
 	"Download Database": "تحميل قاعدة البيانات",
 	"Drag and drop a file to upload or select a file to view": "اسحب الملف وأفلته للرفع أو اختر ملفًا للعرض",
+	"Select a file to view": "حدد ملفًا للعرض",
 	"Draw": "ارسم",
 	"Drop any files here to upload": "",
 	"e.g. '30s','10m'. Valid time units are 's', 'm', 'h'.": "e.g. '30s','10m'. الوحدات الزمنية الصالحة هي 's', 'm', 'h'.",

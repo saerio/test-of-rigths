@@ -399,6 +399,7 @@
 	"Download canceled": "Nedlasting avbrutt",
 	"Download Database": "Last ned database",
 	"Drag and drop a file to upload or select a file to view": "Dra og slipp en fil for å laste den opp, eller velg en fil å vise den",
+	"Select a file to view": "Velg en fil å vise",
 	"Draw": "Tegne",
 	"Drop any files here to upload": "",
 	"e.g. '30s','10m'. Valid time units are 's', 'm', 'h'.": "f.eks. '30s','10m'. Gyldige tidsenheter er 's', 'm', 't'.",

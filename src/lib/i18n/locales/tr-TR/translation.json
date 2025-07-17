@@ -399,6 +399,7 @@
 	"Download canceled": "İndirme iptal edildi",
 	"Download Database": "Veritabanını İndir",
 	"Drag and drop a file to upload or select a file to view": "Yüklemek için bir dosyayı sürükleyip bırakın veya görüntülemek için bir dosya seçin",
+	"Select a file to view": "Görüntülemek için bir dosya seçin",
 	"Draw": "Çiz",
 	"Drop any files here to upload": "",
 	"e.g. '30s','10m'. Valid time units are 's', 'm', 'h'.": "örn. '30s', '10m'. Geçerli zaman birimleri 's', 'm', 'h'.",

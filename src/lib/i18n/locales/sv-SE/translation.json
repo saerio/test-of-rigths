@@ -399,6 +399,7 @@
 	"Download canceled": "Nedladdning avbruten",
 	"Download Database": "Ladda ner databas",
 	"Drag and drop a file to upload or select a file to view": "Dra och släpp en fil för att ladda upp eller välj en fil för att visa",
+	"Select a file to view": "Välj en fil att visa",
 	"Draw": "Rita",
 	"Drop any files here to upload": "Släpp alla filer här för att ladda upp",
 	"e.g. '30s','10m'. Valid time units are 's', 'm', 'h'.": "t.ex. '30s', '10m'. Giltiga tidsenheter är 's', 'm', 'h'.",

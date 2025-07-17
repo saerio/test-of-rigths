@@ -399,6 +399,7 @@
 	"Download canceled": "Yuklab olish bekor qilindi",
 	"Download Database": "Ma'lumotlar bazasini yuklab olish",
 	"Drag and drop a file to upload or select a file to view": "Yuklash uchun faylni sudrab tashlang yoki ko‘rish uchun faylni tanlang",
+	"Select a file to view": "Ko'rish uchun fayl tanlang",
 	"Draw": "Chizish",
 	"Drop any files here to upload": "Yuklash uchun istalgan faylni shu yerga tashlang",
 	"e.g. '30s','10m'. Valid time units are 's', 'm', 'h'.": "masalan. '30s', '10m'. Yaroqli vaqt birliklari 's', 'm', 'h'.",

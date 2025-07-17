@@ -399,6 +399,7 @@
 	"Download canceled": "Pobieranie anulowane",
 	"Download Database": "Pobierz bazę danych",
 	"Drag and drop a file to upload or select a file to view": "Przeciągnij i upuść plik, aby go przesłać lub wybierz plik, aby go wyświetlić.",
+	"Select a file to view": "Wybierz plik do wyświetlenia",
 	"Draw": "Rysuj",
 	"Drop any files here to upload": "",
 	"e.g. '30s','10m'. Valid time units are 's', 'm', 'h'.": "np. '30s', '10m'. Poprawne jednostki czasu to: 's' (sekunda), 'm' (minuta), 'h' (godzina).",
