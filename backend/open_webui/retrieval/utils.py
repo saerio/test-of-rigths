@@ -747,10 +747,10 @@ def generate_openai_batch_embeddings(
                 "Authorization": f"Bearer {key}",
                 **(
                     {
-                        "X-OpenWebUI-User-Name": quote(user.name, safe=" "),
-                        "X-OpenWebUI-User-Id": user.id,
-                        "X-OpenWebUI-User-Email": user.email,
-                        "X-OpenWebUI-User-Role": user.role,
+                        "X-saensamecraftui-User-Name": quote(user.name, safe=" "),
+                        "X-saensamecraftui-User-Id": user.id,
+                        "X-saensamecraftui-User-Email": user.email,
+                        "X-saensamecraftui-User-Role": user.role,
                     }
                     if ENABLE_FORWARD_USER_INFO_HEADERS and user
                     else {}
@@ -796,10 +796,10 @@ def generate_azure_openai_batch_embeddings(
                     "api-key": key,
                     **(
                         {
-                            "X-OpenWebUI-User-Name": quote(user.name, safe=" "),
-                            "X-OpenWebUI-User-Id": user.id,
-                            "X-OpenWebUI-User-Email": user.email,
-                            "X-OpenWebUI-User-Role": user.role,
+                            "X-saensamecraftui-User-Name": quote(user.name, safe=" "),
+                            "X-saensamecraftui-User-Id": user.id,
+                            "X-saensamecraftui-User-Email": user.email,
+                            "X-saensamecraftui-User-Role": user.role,
                         }
                         if ENABLE_FORWARD_USER_INFO_HEADERS and user
                         else {}
@@ -846,10 +846,10 @@ def generate_ollama_batch_embeddings(
                 "Authorization": f"Bearer {key}",
                 **(
                     {
-                        "X-OpenWebUI-User-Name": quote(user.name, safe=" "),
-                        "X-OpenWebUI-User-Id": user.id,
-                        "X-OpenWebUI-User-Email": user.email,
-                        "X-OpenWebUI-User-Role": user.role,
+                        "X-saensamecraftui-User-Name": quote(user.name, safe=" "),
+                        "X-saensamecraftui-User-Id": user.id,
+                        "X-saensamecraftui-User-Email": user.email,
+                        "X-saensamecraftui-User-Role": user.role,
                     }
                     if ENABLE_FORWARD_USER_INFO_HEADERS
                     else {}

@@ -134,7 +134,7 @@
 		});
 		console.log(feedbacksToShare);
 
-		const url = 'https://openwebui.com';
+		const url = 'https://saensamecraftui.com';
 		const tab = await window.open(`${url}/leaderboard`, '_blank');
 
 		// Define the event handler function

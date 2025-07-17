@@ -89,10 +89,10 @@ async def send_get_request(url, key=None, user: UserModel = None):
                     **({"Authorization": f"Bearer {key}"} if key else {}),
                     **(
                         {
-                            "X-OpenWebUI-User-Name": quote(user.name, safe=" "),
-                            "X-OpenWebUI-User-Id": user.id,
-                            "X-OpenWebUI-User-Email": user.email,
-                            "X-OpenWebUI-User-Role": user.role,
+                            "X-saensamecraftui-User-Name": quote(user.name, safe=" "),
+                            "X-saensamecraftui-User-Id": user.id,
+                            "X-saensamecraftui-User-Email": user.email,
+                            "X-saensamecraftui-User-Role": user.role,
                         }
                         if ENABLE_FORWARD_USER_INFO_HEADERS and user
                         else {}
@@ -140,10 +140,10 @@ async def send_post_request(
                 **({"Authorization": f"Bearer {key}"} if key else {}),
                 **(
                     {
-                        "X-OpenWebUI-User-Name": quote(user.name, safe=" "),
-                        "X-OpenWebUI-User-Id": user.id,
-                        "X-OpenWebUI-User-Email": user.email,
-                        "X-OpenWebUI-User-Role": user.role,
+                        "X-saensamecraftui-User-Name": quote(user.name, safe=" "),
+                        "X-saensamecraftui-User-Id": user.id,
+                        "X-saensamecraftui-User-Email": user.email,
+                        "X-saensamecraftui-User-Role": user.role,
                     }
                     if ENABLE_FORWARD_USER_INFO_HEADERS and user
                     else {}
@@ -246,10 +246,10 @@ async def verify_connection(
                     **({"Authorization": f"Bearer {key}"} if key else {}),
                     **(
                         {
-                            "X-OpenWebUI-User-Name": quote(user.name, safe=" "),
-                            "X-OpenWebUI-User-Id": user.id,
-                            "X-OpenWebUI-User-Email": user.email,
-                            "X-OpenWebUI-User-Role": user.role,
+                            "X-saensamecraftui-User-Name": quote(user.name, safe=" "),
+                            "X-saensamecraftui-User-Id": user.id,
+                            "X-saensamecraftui-User-Email": user.email,
+                            "X-saensamecraftui-User-Role": user.role,
                         }
                         if ENABLE_FORWARD_USER_INFO_HEADERS and user
                         else {}
@@ -466,10 +466,10 @@ async def get_ollama_tags(
                     **({"Authorization": f"Bearer {key}"} if key else {}),
                     **(
                         {
-                            "X-OpenWebUI-User-Name": quote(user.name, safe=" "),
-                            "X-OpenWebUI-User-Id": user.id,
-                            "X-OpenWebUI-User-Email": user.email,
-                            "X-OpenWebUI-User-Role": user.role,
+                            "X-saensamecraftui-User-Name": quote(user.name, safe=" "),
+                            "X-saensamecraftui-User-Id": user.id,
+                            "X-saensamecraftui-User-Email": user.email,
+                            "X-saensamecraftui-User-Role": user.role,
                         }
                         if ENABLE_FORWARD_USER_INFO_HEADERS and user
                         else {}
@@ -836,10 +836,10 @@ async def copy_model(
                 **({"Authorization": f"Bearer {key}"} if key else {}),
                 **(
                     {
-                        "X-OpenWebUI-User-Name": quote(user.name, safe=" "),
-                        "X-OpenWebUI-User-Id": user.id,
-                        "X-OpenWebUI-User-Email": user.email,
-                        "X-OpenWebUI-User-Role": user.role,
+                        "X-saensamecraftui-User-Name": quote(user.name, safe=" "),
+                        "X-saensamecraftui-User-Id": user.id,
+                        "X-saensamecraftui-User-Email": user.email,
+                        "X-saensamecraftui-User-Role": user.role,
                     }
                     if ENABLE_FORWARD_USER_INFO_HEADERS and user
                     else {}
@@ -907,10 +907,10 @@ async def delete_model(
                 **({"Authorization": f"Bearer {key}"} if key else {}),
                 **(
                     {
-                        "X-OpenWebUI-User-Name": quote(user.name, safe=" "),
-                        "X-OpenWebUI-User-Id": user.id,
-                        "X-OpenWebUI-User-Email": user.email,
-                        "X-OpenWebUI-User-Role": user.role,
+                        "X-saensamecraftui-User-Name": quote(user.name, safe=" "),
+                        "X-saensamecraftui-User-Id": user.id,
+                        "X-saensamecraftui-User-Email": user.email,
+                        "X-saensamecraftui-User-Role": user.role,
                     }
                     if ENABLE_FORWARD_USER_INFO_HEADERS and user
                     else {}
@@ -971,10 +971,10 @@ async def show_model_info(
                 **({"Authorization": f"Bearer {key}"} if key else {}),
                 **(
                     {
-                        "X-OpenWebUI-User-Name": quote(user.name, safe=" "),
-                        "X-OpenWebUI-User-Id": user.id,
-                        "X-OpenWebUI-User-Email": user.email,
-                        "X-OpenWebUI-User-Role": user.role,
+                        "X-saensamecraftui-User-Name": quote(user.name, safe=" "),
+                        "X-saensamecraftui-User-Id": user.id,
+                        "X-saensamecraftui-User-Email": user.email,
+                        "X-saensamecraftui-User-Role": user.role,
                     }
                     if ENABLE_FORWARD_USER_INFO_HEADERS and user
                     else {}
@@ -1058,10 +1058,10 @@ async def embed(
                 **({"Authorization": f"Bearer {key}"} if key else {}),
                 **(
                     {
-                        "X-OpenWebUI-User-Name": quote(user.name, safe=" "),
-                        "X-OpenWebUI-User-Id": user.id,
-                        "X-OpenWebUI-User-Email": user.email,
-                        "X-OpenWebUI-User-Role": user.role,
+                        "X-saensamecraftui-User-Name": quote(user.name, safe=" "),
+                        "X-saensamecraftui-User-Id": user.id,
+                        "X-saensamecraftui-User-Email": user.email,
+                        "X-saensamecraftui-User-Role": user.role,
                     }
                     if ENABLE_FORWARD_USER_INFO_HEADERS and user
                     else {}
@@ -1145,10 +1145,10 @@ async def embeddings(
                 **({"Authorization": f"Bearer {key}"} if key else {}),
                 **(
                     {
-                        "X-OpenWebUI-User-Name": quote(user.name, safe=" "),
-                        "X-OpenWebUI-User-Id": user.id,
-                        "X-OpenWebUI-User-Email": user.email,
-                        "X-OpenWebUI-User-Role": user.role,
+                        "X-saensamecraftui-User-Name": quote(user.name, safe=" "),
+                        "X-saensamecraftui-User-Id": user.id,
+                        "X-saensamecraftui-User-Email": user.email,
+                        "X-saensamecraftui-User-Role": user.role,
                     }
                     if ENABLE_FORWARD_USER_INFO_HEADERS and user
                     else {}

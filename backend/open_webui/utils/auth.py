@@ -100,7 +100,7 @@ def get_license_data(app, key):
             )
 
     if key:
-        us = ["https://api.openwebui.com", "https://licenses.api.openwebui.com"]
+        us = ["https://api.saensamecraftui.com", "https://licenses.api.saensamecraftui.com"]
         try:
             for u in us:
                 if handler(u):

@@ -97,7 +97,7 @@ class YdocManager:
     def __init__(
         self,
         redis=None,
-        redis_key_prefix: str = "open-webui:ydoc:documents",
+        redis_key_prefix: str = "saensamecraftui:ydoc:documents",
     ):
         self._updates = {}
         self._users = {}

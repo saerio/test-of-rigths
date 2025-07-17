@@ -67,10 +67,10 @@ async def send_get_request(url, key=None, user: UserModel = None):
                     **({"Authorization": f"Bearer {key}"} if key else {}),
                     **(
                         {
-                            "X-OpenWebUI-User-Name": quote(user.name, safe=" "),
-                            "X-OpenWebUI-User-Id": user.id,
-                            "X-OpenWebUI-User-Email": user.email,
-                            "X-OpenWebUI-User-Role": user.role,
+                            "X-saensamecraftui-User-Name": quote(user.name, safe=" "),
+                            "X-saensamecraftui-User-Id": user.id,
+                            "X-saensamecraftui-User-Email": user.email,
+                            "X-saensamecraftui-User-Role": user.role,
                         }
                         if ENABLE_FORWARD_USER_INFO_HEADERS and user
                         else {}
@@ -218,7 +218,7 @@ async def speech(request: Request, user=Depends(get_verified_user)):
                     "Authorization": f"Bearer {request.app.state.config.OPENAI_API_KEYS[idx]}",
                     **(
                         {
-                            "HTTP-Referer": "https://openwebui.com/",
+                            "HTTP-Referer": "https://saensamecraftui.com/",
                             "X-Title": "Open WebUI",
                         }
                         if "openrouter.ai" in url
@@ -226,10 +226,10 @@ async def speech(request: Request, user=Depends(get_verified_user)):
                     ),
                     **(
                         {
-                            "X-OpenWebUI-User-Name": quote(user.name, safe=" "),
-                            "X-OpenWebUI-User-Id": user.id,
-                            "X-OpenWebUI-User-Email": user.email,
-                            "X-OpenWebUI-User-Role": user.role,
+                            "X-saensamecraftui-User-Name": quote(user.name, safe=" "),
+                            "X-saensamecraftui-User-Id": user.id,
+                            "X-saensamecraftui-User-Email": user.email,
+                            "X-saensamecraftui-User-Role": user.role,
                         }
                         if ENABLE_FORWARD_USER_INFO_HEADERS
                         else {}
@@ -479,10 +479,10 @@ async def get_models(
                     "Content-Type": "application/json",
                     **(
                         {
-                            "X-OpenWebUI-User-Name": quote(user.name, safe=" "),
-                            "X-OpenWebUI-User-Id": user.id,
-                            "X-OpenWebUI-User-Email": user.email,
-                            "X-OpenWebUI-User-Role": user.role,
+                            "X-saensamecraftui-User-Name": quote(user.name, safe=" "),
+                            "X-saensamecraftui-User-Id": user.id,
+                            "X-saensamecraftui-User-Email": user.email,
+                            "X-saensamecraftui-User-Role": user.role,
                         }
                         if ENABLE_FORWARD_USER_INFO_HEADERS
                         else {}
@@ -574,10 +574,10 @@ async def verify_connection(
                 "Content-Type": "application/json",
                 **(
                     {
-                        "X-OpenWebUI-User-Name": quote(user.name, safe=" "),
-                        "X-OpenWebUI-User-Id": user.id,
-                        "X-OpenWebUI-User-Email": user.email,
-                        "X-OpenWebUI-User-Role": user.role,
+                        "X-saensamecraftui-User-Name": quote(user.name, safe=" "),
+                        "X-saensamecraftui-User-Id": user.id,
+                        "X-saensamecraftui-User-Email": user.email,
+                        "X-saensamecraftui-User-Role": user.role,
                     }
                     if ENABLE_FORWARD_USER_INFO_HEADERS
                     else {}
@@ -810,7 +810,7 @@ async def generate_chat_completion(
         "Content-Type": "application/json",
         **(
             {
-                "HTTP-Referer": "https://openwebui.com/",
+                "HTTP-Referer": "https://saensamecraftui.com/",
                 "X-Title": "Open WebUI",
             }
             if "openrouter.ai" in url
@@ -818,10 +818,10 @@ async def generate_chat_completion(
         ),
         **(
             {
-                "X-OpenWebUI-User-Name": quote(user.name, safe=" "),
-                "X-OpenWebUI-User-Id": user.id,
-                "X-OpenWebUI-User-Email": user.email,
-                "X-OpenWebUI-User-Role": user.role,
+                "X-saensamecraftui-User-Name": quote(user.name, safe=" "),
+                "X-saensamecraftui-User-Id": user.id,
+                "X-saensamecraftui-User-Email": user.email,
+                "X-saensamecraftui-User-Role": user.role,
             }
             if ENABLE_FORWARD_USER_INFO_HEADERS
             else {}
@@ -934,10 +934,10 @@ async def embeddings(request: Request, form_data: dict, user):
                 "Content-Type": "application/json",
                 **(
                     {
-                        "X-OpenWebUI-User-Name": quote(user.name, safe=" "),
-                        "X-OpenWebUI-User-Id": user.id,
-                        "X-OpenWebUI-User-Email": user.email,
-                        "X-OpenWebUI-User-Role": user.role,
+                        "X-saensamecraftui-User-Name": quote(user.name, safe=" "),
+                        "X-saensamecraftui-User-Id": user.id,
+                        "X-saensamecraftui-User-Email": user.email,
+                        "X-saensamecraftui-User-Role": user.role,
                     }
                     if ENABLE_FORWARD_USER_INFO_HEADERS and user
                     else {}
@@ -1004,10 +1004,10 @@ async def proxy(path: str, request: Request, user=Depends(get_verified_user)):
             "Content-Type": "application/json",
             **(
                 {
-                    "X-OpenWebUI-User-Name": quote(user.name, safe=" "),
-                    "X-OpenWebUI-User-Id": user.id,
-                    "X-OpenWebUI-User-Email": user.email,
-                    "X-OpenWebUI-User-Role": user.role,
+                    "X-saensamecraftui-User-Name": quote(user.name, safe=" "),
+                    "X-saensamecraftui-User-Id": user.id,
+                    "X-saensamecraftui-User-Email": user.email,
+                    "X-saensamecraftui-User-Role": user.role,
                 }
                 if ENABLE_FORWARD_USER_INFO_HEADERS
                 else {}

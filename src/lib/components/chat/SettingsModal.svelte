@@ -425,7 +425,7 @@
 				'about us',
 				'aboutapp',
 				'aboutme',
-				'aboutopenwebui',
+				'aboutsaensamecraftui',
 				'aboutpage',
 				'aboutus',
 				'check for updates',

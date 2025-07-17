@@ -8,14 +8,14 @@ services:
       - "4318:4318"   # OTLP/HTTP
     restart: unless-stopped
 
-  open-webui:
-    image: ghcr.io/open-webui/open-webui:main
-    container_name: open-webui
+  saensamecraftui:
+    image: ghcr.io/saensamecraftui/saensamecraftui:main
+    container_name: saensamecraftui
     depends_on: [grafana]
     environment:
       - ENABLE_OTEL=true
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://grafana:4317 
-      - OTEL_SERVICE_NAME=open-webui
+      - OTEL_SERVICE_NAME=saensamecraftui
     ports:
       - "8088:8080"
     networks: [default]

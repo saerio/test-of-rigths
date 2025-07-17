@@ -19,9 +19,9 @@ tasks: Dict[str, asyncio.Task] = {}
 item_tasks = {}
 
 
-REDIS_TASKS_KEY = "open-webui:tasks"
-REDIS_ITEM_TASKS_KEY = "open-webui:tasks:item"
-REDIS_PUBSUB_CHANNEL = "open-webui:tasks:commands"
+REDIS_TASKS_KEY = "saensamecraftui:tasks"
+REDIS_ITEM_TASKS_KEY = "saensamecraftui:tasks:item"
+REDIS_PUBSUB_CHANNEL = "saensamecraftui:tasks:commands"
 
 
 async def redis_task_command_listener(app):
