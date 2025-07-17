@@ -106,9 +106,9 @@ for source in log_sources:
 
 log.setLevel(SRC_LOG_LEVELS["CONFIG"])
 
-WEBUI_NAME = os.environ.get("WEBUI_NAME", "Open WebUI")
-if WEBUI_NAME != "Open WebUI":
-    WEBUI_NAME += " (Open WebUI)"
+WEBUI_NAME = os.environ.get("WEBUI_NAME", "saensamecraftui")
+if WEBUI_NAME != "saensamecraftui":
+    WEBUI_NAME += " (saensamecraftui)"
 
 WEBUI_FAVICON_URL = "https://saensamecraftui.com/favicon.png"
 

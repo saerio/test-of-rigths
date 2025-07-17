@@ -22,7 +22,7 @@ def search_firecrawl(
         response = requests.post(
             firecrawl_search_url,
             headers={
-                "User-Agent": "Open WebUI (https://github.com/saensamecraftui/saensamecraftui) RAG Bot",
+                "User-Agent": "saensamecraftui (https://github.com/saensamecraftui/saensamecraftui) RAG Bot",
                 "Authorization": f"Bearer {firecrawl_api_key}",
             },
             json={

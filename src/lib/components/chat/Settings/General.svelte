@@ -241,7 +241,7 @@
 						href="https://github.com/saensamecraftui/saensamecraftui/blob/main/docs/CONTRIBUTING.md#-translations-and-internationalization"
 						target="_blank"
 					>
-						Help us translate Open WebUI!
+						Help us translate saensamecraftui!
 					</a>
 				</div>
 			{/if}

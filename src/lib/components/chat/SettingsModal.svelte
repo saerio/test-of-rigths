@@ -420,7 +420,7 @@
 			keywords: [
 				'about app',
 				'about me',
-				'about open webui',
+				'about saensamecraftui',
 				'about page',
 				'about us',
 				'aboutapp',
