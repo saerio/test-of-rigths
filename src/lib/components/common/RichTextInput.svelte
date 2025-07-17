@@ -72,32 +72,28 @@
 	import { keymap } from 'prosemirror-keymap';
 
 	import { AIAutocompletion } from './RichTextInput/AutoCompletion.js';
-	import Table from '@tiptap/extension-table';
-	import TableRow from '@tiptap/extension-table-row';
-	import TableHeader from '@tiptap/extension-table-header';
-	import TableCell from '@tiptap/extension-table-cell';
 
-	import Link from '@tiptap/extension-link';
-	import Underline from '@tiptap/extension-underline';
-	import TaskItem from '@tiptap/extension-task-item';
-	import TaskList from '@tiptap/extension-task-list';
-
-	import CharacterCount from '@tiptap/extension-character-count';
-
-	import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
-	import Placeholder from '@tiptap/extension-placeholder';
 	import StarterKit from '@tiptap/starter-kit';
-	import Highlight from '@tiptap/extension-highlight';
-	import Typography from '@tiptap/extension-typography';
 
+	// Bubble and Floating menus are currently fixed to v2 due to styling issues in v3
+	// TODO: Update to v3 when styling issues are resolved
 	import BubbleMenu from '@tiptap/extension-bubble-menu';
 	import FloatingMenu from '@tiptap/extension-floating-menu';
+
+	import { TableKit } from '@tiptap/extension-table';
+	import { ListKit } from '@tiptap/extension-list';
+	import { Placeholder, CharacterCount } from '@tiptap/extensions';
+
+	import Typography from '@tiptap/extension-typography';
+	import Highlight from '@tiptap/extension-highlight';
+	import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 
 	import { all, createLowlight } from 'lowlight';
 
 	import { PASTED_TEXT_CHARACTER_LIMIT } from '$lib/constants';
 
 	import FormattingButtons from './RichTextInput/FormattingButtons.svelte';
+	import { duration } from 'dayjs';
 
 	export let oncompositionstart = (e) => {};
 	export let oncompositionend = (e) => {};
@@ -145,6 +141,14 @@
 	let ydoc = null;
 	let yXmlFragment = null;
 	let awareness = null;
+
+	const getEditorInstance = async () => {
+		return new Promise((resolve) => {
+			setTimeout(() => {
+				resolve(editor);
+			}, 0);
+		});
+	};
 
 	// Custom Yjs Socket.IO provider
 	class SocketIOProvider {
@@ -217,11 +221,27 @@
 							if (state.length === 2 && state[0] === 0 && state[1] === 0) {
 								// Empty state, check if we have content to initialize
 								// check if editor empty as well
+								// const editor = await getEditorInstance();
+
 								const isEmptyEditor = !editor || editor.getText().trim() === '';
-								if (content && isEmptyEditor && (data?.sessions ?? ['']).length === 1) {
-									const editorYdoc = prosemirrorJSONToYDoc(editor.schema, content);
-									if (editorYdoc) {
-										Y.applyUpdate(this.doc, Y.encodeStateAsUpdate(editorYdoc));
+								if (isEmptyEditor) {
+									if (content && (data?.sessions ?? ['']).length === 1) {
+										const editorYdoc = prosemirrorJSONToYDoc(editor.schema, content);
+										if (editorYdoc) {
+											Y.applyUpdate(this.doc, Y.encodeStateAsUpdate(editorYdoc));
+										}
+									}
+								} else {
+									// If the editor already has content, we don't need to send an empty state
+									if (this.doc.getXmlFragment('prosemirror').length > 0) {
+										this.socket.emit('ydoc:document:update', {
+											document_id: this.documentId,
+											user_id: this.user?.id,
+											socket_id: this.socket.id,
+											update: Y.encodeStateAsUpdate(this.doc)
+										});
+									} else {
+										console.warn('Yjs document is empty, not sending state.');
 									}
 								}
 							} else {
@@ -794,35 +814,30 @@
 			initializeCollaboration();
 		}
 
+		console.log(bubbleMenuElement, floatingMenuElement);
+
 		editor = new Editor({
 			element: element,
 			extensions: [
 				StarterKit,
+				Placeholder.configure({ placeholder }),
+
 				CodeBlockLowlight.configure({
 					lowlight
 				}),
 				Highlight,
 				Typography,
-				Underline,
 
-				Placeholder.configure({ placeholder }),
-				Table.configure({ resizable: true }),
-				TableRow,
-				TableHeader,
-				TableCell,
-				TaskList,
-				TaskItem.configure({
-					nested: true
+				TableKit.configure({
+					table: { resizable: true }
+				}),
+				ListKit.configure({
+					taskItem: {
+						nested: true
+					}
 				}),
 				CharacterCount.configure({}),
-				...(link
-					? [
-							Link.configure({
-								openOnClick: true,
-								linkOnPaste: true
-							})
-						]
-					: []),
+
 				...(autocomplete
 					? [
 							AIAutocompletion.configure({
@@ -873,6 +888,7 @@
 			onTransaction: () => {
 				// force re-render so `editor.isActive` works as expected
 				editor = editor;
+				if (!editor) return;
 
 				htmlValue = editor.getHTML();
 				jsonValue = editor.getJSON();
@@ -1063,7 +1079,10 @@
 							const hasImageItem = Array.from(event.clipboardData.items).some((item) =>
 								item.type.startsWith('image/')
 							);
-							if (hasImageFile || hasImageItem) {
+
+							const hasFile = Array.from(event.clipboardData.files).length > 0;
+
+							if (hasImageFile || hasImageItem || hasFile) {
 								eventDispatch('paste', { event });
 								event.preventDefault();
 								return true;
@@ -1146,11 +1165,11 @@
 </script>
 
 {#if showFormattingButtons}
-	<div bind:this={bubbleMenuElement} class="p-0">
+	<div bind:this={bubbleMenuElement} id="bubble-menu" class="p-0">
 		<FormattingButtons {editor} />
 	</div>
 
-	<div bind:this={floatingMenuElement} class="p-0">
+	<div bind:this={floatingMenuElement} id="floating-menu" class="p-0">
 		<FormattingButtons {editor} />
 	</div>
 {/if}
