@@ -1,14 +1,6 @@
 # saensamecraftui 👋
 
-![GitHub stars](https://img.shields.io/github/stars/saensamecraftui/saensamecraftui?style=social)
-![GitHub forks](https://img.shields.io/github/forks/saensamecraftui/saensamecraftui?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/saensamecraftui/saensamecraftui?style=social)
-![GitHub repo size](https://img.shields.io/github/repo-size/saensamecraftui/saensamecraftui)
-![GitHub language count](https://img.shields.io/github/languages/count/saensamecraftui/saensamecraftui)
-![GitHub top language](https://img.shields.io/github/languages/top/saensamecraftui/saensamecraftui)
-![GitHub last commit](https://img.shields.io/github/last-commit/saensamecraftui/saensamecraftui?color=red)
-[![Discord](https://img.shields.io/badge/Discord-Open_WebUI-blue?logo=discord&logoColor=white)](https://discord.gg/5rJgQTnV4s)
-[![](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/tjbck)
+
 
 **saensamecraftui is an [extensible](https://docs.saensamecraftui.com/features/plugin/), feature-rich, and user-friendly self-hosted AI platform designed to operate entirely offline.** It supports various LLM runners like **Ollama** and **OpenAI-compatible APIs**, with **built-in inference engine** for RAG, making it a **powerful AI deployment solution**.
 
